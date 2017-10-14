@@ -1,8 +1,8 @@
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/app.js',
   output: {
     path: __dirname,
-    filename: 'index.js'
+    filename: 'app.js'
   },
   module: {
     loaders: [
