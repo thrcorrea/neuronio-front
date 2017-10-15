@@ -4,10 +4,11 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 import UserScreen from './screens/userScreen';
 import LoginScreen from './screens/loginScreen';
 import AdminScreen from './screens/adminScreen';
+import helper from './util/helper';
 
 let routes;
 
-const authenticated = true;
+const authenticated = helper.getLocalStorageItem('sessionAccreditation');
 
 if (authenticated) {
   routes = (

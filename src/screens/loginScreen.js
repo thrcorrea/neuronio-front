@@ -21,8 +21,8 @@ class LoginScreen extends React.Component {
   processForm(event) {
     event.preventDefault();
 
-    const email = encodeURIComponent(this.state.user.email);
-    const password = encodeURIComponent(this.state.user.password);
+    const email = this.state.user.email;
+    const password = this.state.user.password;
 
     console.log('tem que autenticar');
 
@@ -31,7 +31,7 @@ class LoginScreen extends React.Component {
       password
     })
       .then((response) => {
-        console.log(response);
+        localStorage.setItem('sessionAccreditation', response.data.token)
       })
       .catch((error) => {
         console.log(error);
