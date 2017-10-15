@@ -13,7 +13,7 @@ const authenticated = helper.getLocalStorageItem('sessionAccreditation');
 if (authenticated) {
   routes = (
     <div>
-      <Route path='/user' component={UserScreen} />
+      <Route path='/' component={UserScreen} />
       <Route path='/admin' component={AdminScreen} />
     </div>
   )

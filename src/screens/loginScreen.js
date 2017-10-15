@@ -31,7 +31,8 @@ class LoginScreen extends React.Component {
       password
     })
       .then((response) => {
-        localStorage.setItem('sessionAccreditation', response.data.token)
+        localStorage.setItem('sessionAccreditation', response.data.token);
+        window.href = '/';
       })
       .catch((error) => {
         console.log(error);
