@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import LoginForm from '../components/loginForm';
+import auth from '../util/auth';
+import api from '../util/api';
 
 class LoginScreen extends React.Component {
   constructor(props) {
@@ -11,7 +13,9 @@ class LoginScreen extends React.Component {
       user: {
         email: '',
         password: '',
-      }
+      },
+      errors: {},
+      loading: false,
     };
 
     this.processForm = this.processForm.bind(this);
@@ -24,18 +28,34 @@ class LoginScreen extends React.Component {
     const email = this.state.user.email;
     const password = this.state.user.password;
 
-    console.log('tem que autenticar');
+    this.setState({
+      loading: true
+    });
 
-    axios.post('https://api-neuroniohomolog.wedeploy.io/login', {
-      email,
-      password
-    })
-      .then((response) => {
-        localStorage.setItem('sessionAccreditation', response.data.token);
-        window.href = '/';
+    api.login(email, password)
+      .then((data) => {
+        if (data.success) {
+          auth.authenticate(data.token);
+          this.setState({
+            errors: {},
+            loading: false,
+          });
+        } else {
+          let errors = {};
+          errors.summary = data.err;
+          this.setState({
+            errors,
+            loading: false,
+          });
+        }
       })
       .catch((error) => {
-        console.log(error);
+        const errors = error ? error : {};
+        errors.summary = 'Erro ao conectar com servidor';
+        this.setState({
+          errors,
+          loading: false
+        });
       });
 
 
@@ -57,6 +77,8 @@ class LoginScreen extends React.Component {
         onSubmit={this.processForm}
         onChange={this.changeUser}
         user={this.state.user}
+        errors={this.state.errors}
+        loading={this.state.loading}
       />
     );
   }
