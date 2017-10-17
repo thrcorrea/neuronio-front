@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import UserScreen from './screens/userScreen';
 import LoginScreen from './screens/loginScreen';
+import SignupScreen from './screens/signupScreen';
 import AdminScreen from './screens/adminScreen';
 import auth from './util/auth';
 
@@ -19,6 +20,7 @@ if (auth.isAuthenticated()) {
   routes = (
     <div>
       <Route exact path='/' component={LoginScreen} />
+      <Route path='/signup' component={SignupScreen} />
     </div>
   )
 }
@@ -44,6 +46,7 @@ class App extends React.Component {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/login">Login</Link></li>
             <li><Link to="/admin">admin</Link></li>
+            <li><Link to="/signup">Cadastro</Link></li>
             <li><a href="#" onClick={this.handleClick}> Logout </a></li>
           </ul>
           {routes}
